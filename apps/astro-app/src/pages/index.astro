@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Button } from "@repo/ui/button";
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <Button client:load appName="astro" className="button">Click me!</Button>
+  </main>
+</Layout>
+
+<style>
+  :global(.button) {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .button:hover,
+  .button:focus {
+    background-color: #e5e4e2;
+  }
+</style>
