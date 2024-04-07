@@ -1,0 +1,37 @@
+name: Deploy Astro App to S3
+on:
+  push:
+    branches:
+      - main
+env:
+  BUCKET_NAME: "actions-sample"
+  AWS_REGION: "ap-northeast-1"
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build --workspace=astro-app
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 cp --recursive ./apps/astro-app/dist s3://${{ env.BUCKET_NAME }}/
