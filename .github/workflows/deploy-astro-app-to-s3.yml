@@ -44,7 +44,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run build --filter=astro-app
+        run: pnpm --filter astro-app build
 
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
